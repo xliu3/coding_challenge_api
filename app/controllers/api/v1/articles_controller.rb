@@ -26,6 +26,27 @@ module Api
         end
       end
 
+      def create
+        article = Article.new(article_params)
+
+        if article.save
+          response.headers['Access-Control-Allow-Origin'] = '*'
+          render json:{ status: 'SUCCESS', messege:'Article are created', data: article }, status: :ok
+        else
+          response.headers['Access-Control-Allow-Origin'] = '*'
+          render json: { status: 'ERROR', message:'Article are NOT created',
+            data: article.errors}, status: :unprocessable_entity
+        end
+      end
+
+
+      def destroy
+        article = Article.find(params[:id])
+        article.destroy
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        render json: {status: 'SUCCESS', messege:'Article are deleted', data: article}, status: :ok
+      end
+
       private
 
       def article_params
