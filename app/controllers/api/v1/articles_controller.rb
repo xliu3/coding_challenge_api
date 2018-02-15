@@ -44,6 +44,7 @@ module Api
         article = Article.find(params[:id])
         article.destroy
         response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
         render json: {status: 'SUCCESS', messege:'Article are deleted', data: article}, status: :ok
       end
 
